@@ -1,18 +1,39 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login';
-import Explore from './pages/Explore';
-import './App.css';
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
+import MainLayout from "./components/Layout/MainLayout";
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/*"
+          element={
+            <MainLayout>
+              <Routes>
+                <Route path="/" element={<div>Home Page</div>} />
+                <Route path="/search" element={<div>Search Page</div>} />
+                <Route
+                  path="/notifications"
+                  element={<div>Notifications Page</div>}
+                />
+                <Route path="/profile" element={<div>Profile Page</div>} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </MainLayout>
+          }
+        />
       </Routes>
     </Router>
   );
 }
 
-export default App; 
+export default App;

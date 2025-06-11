@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Threads"
+  },
+  "login": {
+    "title": "Sign in to Threads",
+    "username": "Username",
+    "password": "Password",
+    "submit": "Sign in",
+    "noAccount": "Don't have an account?",
+    "register": "Sign up",
+    "usernameRequired": "Please input your username!",
+    "passwordRequired": "Please input your password!",
+    "success": "Login successful!",
+    "error": "Login failed!"
+  },
+  "register": {
+    "title": "Create your account",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "submit": "Sign up",
+    "haveAccount": "Already have an account?",
+    "login": "Sign in",
+    "usernameRequired": "Please input your username!",
+    "emailRequired": "Please input your email!",
+    "emailInvalid": "Please input a valid email!",
+    "passwordRequired": "Please input your password!",
+    "confirmPasswordRequired": "Please confirm your password!",
+    "passwordMismatch": "The two passwords do not match!",
+    "success": "Registration successful!",
+    "error": "Registration failed!"
+  },
+  "validation": {
+    "required": "Please input {{field}}!"
+  },
+  "navigation": {
+    "home": "Home",
+    "search": "Search",
+    "notifications": "Notifications",
+    "profile": "Profile",
+    "logout": "Logout"
+  }
+} 

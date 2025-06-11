@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Threads"
+  },
+  "login": {
+    "title": "Đăng nhập vào Threads",
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu",
+    "submit": "Đăng nhập",
+    "noAccount": "Chưa có tài khoản?",
+    "register": "Đăng ký",
+    "usernameRequired": "Vui lòng nhập tên đăng nhập!",
+    "passwordRequired": "Vui lòng nhập mật khẩu!",
+    "success": "Đăng nhập thành công!",
+    "error": "Đăng nhập thất bại!"
+  },
+  "register": {
+    "title": "Tạo tài khoản mới",
+    "username": "Tên đăng nhập",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "submit": "Đăng ký",
+    "haveAccount": "Đã có tài khoản?",
+    "login": "Đăng nhập",
+    "usernameRequired": "Vui lòng nhập tên đăng nhập!",
+    "emailRequired": "Vui lòng nhập email!",
+    "emailInvalid": "Vui lòng nhập email hợp lệ!",
+    "passwordRequired": "Vui lòng nhập mật khẩu!",
+    "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu!",
+    "passwordMismatch": "Hai mật khẩu không khớp!",
+    "success": "Đăng ký thành công!",
+    "error": "Đăng ký thất bại!"
+  },
+  "validation": {
+    "required": "Vui lòng nhập {{field}}!"
+  },
+  "navigation": {
+    "home": "Trang chủ",
+    "search": "Tìm kiếm",
+    "notifications": "Thông báo",
+    "profile": "Cá nhân",
+    "logout": "Đăng xuất"
+  }
+} 
