@@ -1,4 +1,4 @@
-export interface PaginationMetaDto {
+export interface PaginationMeta {
   count: number;
   totalPages: number;
   currentPage: number;
@@ -13,8 +13,8 @@ export interface ApiResponse<T> {
 
 export interface PaginatedResponse<T> {
   data: T[];
-  pagination: PaginationMetaDto;
+  pagination: PaginationMeta;
   message: string;
   statusCode: number;
   success: boolean;
-} 
+}

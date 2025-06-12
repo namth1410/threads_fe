@@ -1,6 +1,6 @@
 import { ApiResponse } from "@/types/api";
 import { axiosInstance } from "@/utils/axios";
-import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Card, Form, Input, message } from "antd";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
@@ -29,9 +29,11 @@ const Register = () => {
       );
       localStorage.setItem("token", data.data.token);
       message.success(t("register.success"));
-      navigate("/");
+      navigate("/login");
     } catch (error: any) {
-      message.error(error.response?.data?.message || t("register.error"));
+      const msg =
+        error.response?.data?.message || error.message || t("register.error");
+      message.error(msg);
     }
   };
 
@@ -43,7 +45,6 @@ const Register = () => {
         </div>
         <Form
           name="register"
-          initialValues={{ remember: true }}
           onFinish={onFinish}
           layout="vertical"
           className={styles.form}
@@ -57,20 +58,6 @@ const Register = () => {
             <Input
               prefix={<UserOutlined />}
               placeholder={t("register.username")}
-              size="large"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="email"
-            rules={[
-              { required: true, message: t("register.emailRequired") },
-              { type: "email", message: t("register.emailInvalid") },
-            ]}
-          >
-            <Input
-              prefix={<MailOutlined />}
-              placeholder={t("register.email")}
               size="large"
             />
           </Form.Item>

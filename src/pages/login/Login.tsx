@@ -35,8 +35,9 @@ const Login = () => {
       await dispatch(getMe());
       navigate("/");
     } catch (error: any) {
-      console.log(error);
-      message.error(error.response?.data?.message ?? t("login.error"));
+      const msg =
+        error.response?.data?.message || error.message || t("register.error");
+      message.error(msg);
     }
   };
 
@@ -48,7 +49,6 @@ const Login = () => {
         </div>
         <Form
           name="login"
-          initialValues={{ remember: true }}
           onFinish={onFinish}
           layout="vertical"
           className={styles.form}

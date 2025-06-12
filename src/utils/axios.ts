@@ -1,5 +1,5 @@
-import axios, { AxiosError } from "axios";
 import { ApiResponse } from "@/types/api";
+import axios, { AxiosError } from "axios";
 
 const baseURL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
@@ -28,7 +28,13 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error: AxiosError<ApiResponse<any>>) => {
-    const message = error.response?.data?.message || "An error occurred";
-    return Promise.reject(new Error(message));
+    if (error.response?.status === 401) {
+      // Clear tokens and redirect to login
+      localStorage.removeItem("token");
+      if (window.location.pathname !== "/login") {
+        window.location.href = "/login";
+      }
+    }
+    return Promise.reject(error);
   }
 );
