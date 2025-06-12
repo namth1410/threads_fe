@@ -8,7 +8,7 @@ const Explore: React.FC = () => {
   return (
     <MainLayout>
       <Title level={2}>Trang Khám Phá</Title>
-      <p>Chào mừng đến với trang khám phá!</p>
+      <p>Chào mừng đến với trang khám phá! as</p>
     </MainLayout>
   );
 };
