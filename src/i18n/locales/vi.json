@@ -41,5 +41,17 @@
     "notifications": "Thông báo",
     "profile": "Cá nhân",
     "logout": "Đăng xuất"
+  },
+  "thread": {
+    "create": "Tạo Thread",
+    "create_title": "Tạo Thread mới",
+    "placeholder": "Bạn đang nghĩ gì?",
+    "upload": "Tải ảnh/video",
+    "empty_warning": "Vui lòng nhập nội dung hoặc thêm ảnh/video.",
+    "created_success": "Đã tạo thread thành công!"
+  },
+  "common": {
+    "post": "Đăng",
+    "cancel": "Hủy"
   }
-} 
+}

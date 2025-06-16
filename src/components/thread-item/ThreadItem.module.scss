@@ -1,82 +1,65 @@
 .threadItem {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border-bottom: 1px solid #2e2e2e;
+    color: white;
+
     .header {
         display: flex;
-        gap: 12px;
         align-items: center;
-        margin-bottom: 8px;
-    }
-
-    .username {
-        font-weight: bold;
-    }
-
-    .timestamp {
-        font-size: 12px;
-        color: #888;
-    }
-
-    .content {
-        margin-top: 8px;
-        white-space: pre-wrap;
-    }
-
-    .mediaSection {
-        margin-top: 12px;
-    }
-
-    .label {
+        gap: 8px;
         font-size: 14px;
-        font-weight: 500;
-        display: block;
-        margin-bottom: 6px;
-    }
+        margin-bottom: 8px;
 
-    .stackedPreview {
-        position: relative;
-        width: fit-content;
-        height: 80px;
-        cursor: pointer;
-    }
+        .username {
+            font-weight: 600;
+        }
 
-    .previewImage {
-        position: absolute;
-        width: 70px;
-        height: 70px;
-        object-fit: cover;
-        border-radius: 6px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-        transition: transform 0.2s ease;
-
-        &:hover {
-            transform: scale(1.05);
+        .timestamp {
+            color: #aaa;
         }
     }
 
-    .moreOverlay {
-        position: absolute;
-        top: 0;
-        left: 30px;
-        width: 70px;
-        height: 70px;
-        border-radius: 6px;
-        background-color: rgba(0, 0, 0, 0.6);
-        color: white;
-        font-size: 16px;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10;
+    .content {
+        margin-bottom: 8px;
+        font-size: 15px;
+        white-space: pre-line;
     }
 
-    .videoList {
+    .media {
         display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-        margin-top: 4px;
+        gap: 4px;
+        margin-bottom: 8px;
 
+        img,
         video {
-            border-radius: 4px;
+            border-radius: 8px;
+            max-height: 320px;
+            object-fit: cover;
+        }
+
+        img {
+            max-width: 100%;
+        }
+    }
+
+    .actions {
+        display: flex;
+        gap: 16px;
+        font-size: 14px;
+        color: #aaa;
+        align-items: center;
+
+        .action {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+
+            &:hover {
+                color: #fff;
+            }
         }
     }
 }

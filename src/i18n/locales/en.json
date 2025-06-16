@@ -41,5 +41,17 @@
     "notifications": "Notifications",
     "profile": "Profile",
     "logout": "Logout"
+  },
+  "thread": {
+    "create": "Create Thread",
+    "create_title": "Create a New Thread",
+    "placeholder": "What's on your mind?",
+    "upload": "Upload image/video",
+    "empty_warning": "Please enter content or upload images/videos.",
+    "created_success": "Thread created successfully!"
+  },
+  "common": {
+    "post": "Post",
+    "cancel": "Cancel"
   }
-} 
+}
