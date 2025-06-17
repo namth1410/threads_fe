@@ -18,3 +18,9 @@ export interface PaginatedResponse<T> {
   statusCode: number;
   success: boolean;
 }
+
+export type APIErrorResponse = {
+  message: string;
+  error: string;
+  statusCode: number;
+};

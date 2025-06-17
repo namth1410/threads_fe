@@ -5,6 +5,7 @@
   "login": {
     "title": "Sign in to Threads",
     "username": "Username",
+    "email": "Email",
     "password": "Password",
     "submit": "Sign in",
     "noAccount": "Don't have an account?",
@@ -53,5 +54,21 @@
   "common": {
     "post": "Post",
     "cancel": "Cancel"
+  },
+  "profile": {
+    "title": "Profile",
+    "information": "Profile Information",
+    "username": "Username",
+    "email": "Email",
+    "displayId": "Display ID",
+    "role": "Role",
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "updatePassword": "Update Password",
+    "passwordMismatch": "New passwords do not match",
+    "passwordChanged": "Password changed successfully",
+    "changePasswordError": "Failed to change password. Please try again."
   }
 }

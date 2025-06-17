@@ -13,6 +13,7 @@ import {
   BrowserRouter as Router,
   Routes,
 } from "react-router-dom";
+import Profile from "@/pages/profile/Profile";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -42,7 +43,7 @@ function App() {
                     path="/notifications"
                     element={<div>Notifications Page</div>}
                   />
-                  <Route path="/profile" element={<div>Profile Page</div>} />
+                  <Route path="/profile" element={<Profile />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </MainLayout>

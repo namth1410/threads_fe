@@ -1,6 +1,6 @@
 import { ApiResponse } from "@/types/api";
 import { axiosInstance } from "@/utils/axios";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Card, Form, Input, message } from "antd";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
@@ -58,6 +58,15 @@ const Register = () => {
             <Input
               prefix={<UserOutlined />}
               placeholder={t("register.username")}
+              size="large"
+            />
+          </Form.Item>
+
+          {/* Email không bắt buộc */}
+          <Form.Item name="email">
+            <Input
+              prefix={<MailOutlined />}
+              placeholder={t("login.email")}
               size="large"
             />
           </Form.Item>

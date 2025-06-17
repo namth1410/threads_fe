@@ -5,6 +5,7 @@
   "login": {
     "title": "Đăng nhập vào Threads",
     "username": "Tên đăng nhập",
+    "email": "Email",
     "password": "Mật khẩu",
     "submit": "Đăng nhập",
     "noAccount": "Chưa có tài khoản?",
@@ -53,5 +54,21 @@
   "common": {
     "post": "Đăng",
     "cancel": "Hủy"
+  },
+  "profile": {
+    "title": "Hồ sơ",
+    "information": "Thông tin hồ sơ",
+    "username": "Tên đăng nhập",
+    "email": "Email",
+    "displayId": "ID hiển thị",
+    "role": "Vai trò",
+    "changePassword": "Đổi mật khẩu",
+    "currentPassword": "Mật khẩu hiện tại",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "updatePassword": "Cập nhật mật khẩu",
+    "passwordMismatch": "Mật khẩu mới không khớp",
+    "passwordChanged": "Đổi mật khẩu thành công",
+    "changePasswordError": "Không thể đổi mật khẩu. Vui lòng thử lại."
   }
 }
