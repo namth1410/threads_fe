@@ -13,7 +13,22 @@
     "usernameRequired": "Vui lòng nhập tên đăng nhập!",
     "passwordRequired": "Vui lòng nhập mật khẩu!",
     "success": "Đăng nhập thành công!",
-    "error": "Đăng nhập thất bại!"
+    "error": "Đăng nhập thất bại!",
+    "forgotPassword": "Quên mật khẩu?",
+    "resetPassword": "Đặt lại mật khẩu",
+    "resetPasswordTitle": "Đặt lại mật khẩu của bạn",
+    "resetPasswordDescription": "Nhập địa chỉ email của bạn và chúng tôi sẽ gửi cho bạn một liên kết để đặt lại mật khẩu.",
+    "resetPasswordSuccess": "Liên kết đặt lại mật khẩu đã được gửi đến email của bạn!",
+    "resetPasswordError": "Không thể gửi liên kết đặt lại mật khẩu!",
+    "newPassword": "Mật khẩu mới",
+    "confirmNewPassword": "Xác nhận mật khẩu mới",
+    "setNewPassword": "Đặt mật khẩu mới",
+    "setNewPasswordTitle": "Đặt mật khẩu mới của bạn",
+    "setNewPasswordDescription": "Vui lòng nhập mật khẩu mới của bạn bên dưới.",
+    "setNewPasswordSuccess": "Mật khẩu đã được đặt lại thành công!",
+    "setNewPasswordError": "Không thể đặt lại mật khẩu!",
+    "passwordMinLength": "Mật khẩu phải có ít nhất 6 ký tự!",
+    "passwordMismatch": "Hai mật khẩu không khớp!"
   },
   "register": {
     "title": "Tạo tài khoản mới",

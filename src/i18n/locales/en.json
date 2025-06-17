@@ -13,7 +13,22 @@
     "usernameRequired": "Please input your username!",
     "passwordRequired": "Please input your password!",
     "success": "Login successful!",
-    "error": "Login failed!"
+    "error": "Login failed!",
+    "forgotPassword": "Forgot password?",
+    "resetPassword": "Reset password",
+    "resetPasswordTitle": "Reset your password",
+    "resetPasswordDescription": "Enter your email address and we'll send you a link to reset your password.",
+    "resetPasswordSuccess": "Password reset link has been sent to your email!",
+    "resetPasswordError": "Failed to send reset password link!",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "setNewPassword": "Set new password",
+    "setNewPasswordTitle": "Set your new password",
+    "setNewPasswordDescription": "Please enter your new password below.",
+    "setNewPasswordSuccess": "Password has been reset successfully!",
+    "setNewPasswordError": "Failed to reset password!",
+    "passwordMinLength": "Password must be at least 6 characters!",
+    "passwordMismatch": "The two passwords do not match!"
   },
   "register": {
     "title": "Create your account",

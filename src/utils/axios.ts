@@ -31,7 +31,10 @@ axiosInstance.interceptors.response.use(
     if (error.response?.status === 401) {
       // Clear tokens and redirect to login
       localStorage.removeItem("token");
-      if (window.location.pathname !== "/login") {
+      if (
+        window.location.pathname !== "/login" &&
+        window.location.pathname !== "/reset-password"
+      ) {
         window.location.href = "/login";
       }
     }

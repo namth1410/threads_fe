@@ -75,6 +75,10 @@ const Login = () => {
             />
           </Form.Item>
 
+          <div className={styles.forgotPassword}>
+            <Link to="/forgot-password">{t("login.forgotPassword")}</Link>
+          </div>
+
           <Form.Item>
             <Button type="primary" htmlType="submit" block size="large">
               {t("login.submit")}

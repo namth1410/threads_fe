@@ -57,5 +57,19 @@
                 }
             }
         }
+
+        .forgotPassword {
+            text-align: right;
+            margin-bottom: 24px;
+
+            a {
+                color: #1890ff;
+                font-size: 14px;
+
+                &:hover {
+                    color: #40a9ff;
+                }
+            }
+        }
     }
 }

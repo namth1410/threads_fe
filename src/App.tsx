@@ -1,7 +1,10 @@
 import LoadingScreen from "@/components/loading-screen/LoadingScreen";
 import MainLayout from "@/layouts/MainLayout";
 import Explore from "@/pages/explore/Explore";
+import ForgotPassword from "@/pages/login/ForgotPassword";
 import Login from "@/pages/login/Login";
+import ResetPassword from "@/pages/login/ResetPassword";
+import Profile from "@/pages/profile/Profile";
 import Register from "@/pages/register/Register";
 import { AppDispatch, RootState } from "@/store";
 import { getMe } from "@/store/slices/meSlice";
@@ -13,7 +16,6 @@ import {
   BrowserRouter as Router,
   Routes,
 } from "react-router-dom";
-import Profile from "@/pages/profile/Profile";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,9 +28,11 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    <Router   >
       <Routes>
         {!me && <Route path="/login" element={<Login />} />}
+        {!me && <Route path="/forgot-password" element={<ForgotPassword />} />}
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/register" element={<Register />} />
 
         {me && (
