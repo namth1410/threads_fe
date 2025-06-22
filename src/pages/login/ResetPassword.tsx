@@ -32,7 +32,10 @@ const ResetPassword = () => {
       message.success(t("login.setNewPasswordSuccess"));
       navigate("/login");
     } catch (error: any) {
-      const msg = error.response?.data?.message || error.message || t("login.setNewPasswordError");
+      const msg =
+        error.response?.data?.message ||
+        error.message ||
+        t("login.setNewPasswordError");
       message.error(msg);
     }
   };
@@ -54,7 +57,7 @@ const ResetPassword = () => {
             name="password"
             rules={[
               { required: true, message: t("login.passwordRequired") },
-              { min: 6, message: t("login.passwordMinLength") }
+              { min: 6, message: t("login.passwordMinLength") },
             ]}
           >
             <Input.Password
@@ -101,4 +104,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword; 
+export default ResetPassword;

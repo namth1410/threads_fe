@@ -1,7 +1,7 @@
 export enum Role {
-  USER = 'user',
-  ADMIN = 'admin',
-  SUPERADMIN = 'superadmin',
+  USER = "user",
+  ADMIN = "admin",
+  SUPERADMIN = "superadmin",
 }
 
 export interface Me {
@@ -11,4 +11,4 @@ export interface Me {
   displayId: string;
   role: Role;
   createdAt: string;
-} 
+}

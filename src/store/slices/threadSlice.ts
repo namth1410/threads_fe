@@ -17,9 +17,8 @@ const initialState: ThreadState = {
 };
 
 export const fetchThreads = createAsyncThunk("threads/fetchAll", async () => {
-  const res = await axiosInstance.get<PaginatedResponse<ThreadResponseDto>>(
-    `/threads`
-  );
+  const res =
+    await axiosInstance.get<PaginatedResponse<ThreadResponseDto>>(`/threads`);
   return res.data;
 });
 

@@ -28,7 +28,7 @@ function App() {
   }, []);
 
   return (
-    <Router   >
+    <Router>
       <Routes>
         {!me && <Route path="/login" element={<Login />} />}
         {!me && <Route path="/forgot-password" element={<ForgotPassword />} />}

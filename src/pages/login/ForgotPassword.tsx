@@ -15,10 +15,16 @@ const ForgotPassword = () => {
 
   const onFinish = async (values: ForgotPasswordForm) => {
     try {
-      await axiosInstance.post<ApiResponse<void>>("/auth/forgot-password", values);
+      await axiosInstance.post<ApiResponse<void>>(
+        "/auth/forgot-password",
+        values
+      );
       message.success(t("login.resetPasswordSuccess"));
     } catch (error: any) {
-      const msg = error.response?.data?.message || error.message || t("login.resetPasswordError");
+      const msg =
+        error.response?.data?.message ||
+        error.message ||
+        t("login.resetPasswordError");
       message.error(msg);
     }
   };
@@ -40,7 +46,7 @@ const ForgotPassword = () => {
             name="email"
             rules={[
               { required: true, message: t("register.emailRequired") },
-              { type: "email", message: t("register.emailInvalid") }
+              { type: "email", message: t("register.emailInvalid") },
             ]}
           >
             <Input
@@ -65,4 +71,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword; 
+export default ForgotPassword;

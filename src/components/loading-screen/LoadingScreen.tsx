@@ -1,5 +1,5 @@
-import { Spin } from 'antd';
-import styles from './LoadingScreen.module.scss';
+import { Spin } from "antd";
+import styles from "./LoadingScreen.module.scss";
 
 const LoadingScreen = () => {
   return (
@@ -10,4 +10,4 @@ const LoadingScreen = () => {
   );
 };
 
-export default LoadingScreen; 
+export default LoadingScreen;
