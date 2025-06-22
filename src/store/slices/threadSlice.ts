@@ -63,7 +63,6 @@ const threadSlice = createSlice({
       })
       .addCase(createThread.fulfilled, (state, action) => {
         state.isCreating = false;
-        state.threads.unshift(action.payload);
       })
       .addCase(createThread.rejected, (state) => {
         state.isCreating = false;

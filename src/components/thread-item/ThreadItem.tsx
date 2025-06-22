@@ -29,7 +29,7 @@ const ThreadItem: React.FC<Props> = ({ thread }) => {
 
       <div className={styles.content}>{content}</div>
 
-      {media.length > 0 && (
+      {media?.length > 0 && (
         <div className={styles.media}>
           {media.map((m) =>
             m.type.startsWith("image") ? (

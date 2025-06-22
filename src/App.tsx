@@ -16,10 +16,35 @@ import {
   BrowserRouter as Router,
   Routes,
 } from "react-router-dom";
+import { connectSocket, getSocket } from "./utils/socket";
+import { message } from "antd";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
   const { me } = useSelector((state: RootState) => state.me);
+
+  useEffect(() => {
+    connectSocket();
+    const socket = getSocket();
+
+    const completeEvent = `upload-complete`;
+    const failedEvent = `upload-failed`;
+
+    socket.on(completeEvent, (payload) => {
+      console.log("✅ Upload completed", payload);
+      message.success(payload.fileUrl);
+    });
+
+    socket.on(failedEvent, (payload) => {
+      console.error("❌ Upload failed", payload);
+      message.error(payload.reason);
+    });
+
+    return () => {
+      socket.off(completeEvent);
+      socket.off(failedEvent);
+    };
+  }, []);
 
   useEffect(() => {
     if (!me) {
