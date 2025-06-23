@@ -44,6 +44,7 @@ const ThreadItem: React.FC<Props> = ({ thread }) => {
                 key={m.id}
                 src={m.url}
                 controls
+                preload="metadata"
                 style={{ width: `${100 / Math.min(media.length, 3)}%` }}
               />
             )
