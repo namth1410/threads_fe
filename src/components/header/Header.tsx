@@ -1,4 +1,5 @@
-import { AppDispatch, RootState } from "@/store";
+import { AppDispatch } from "@/store";
+import { hideLoader, showLoader } from "@/store/slices/loaderSlice";
 import { createThread } from "@/store/slices/threadSlice";
 import {
   BellOutlined,
@@ -17,13 +18,12 @@ import {
   Menu,
   message,
   Modal,
-  Spin,
   Upload,
   UploadFile,
 } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import LanguageSwitcher from "../language-switcher/LanguageSwitcher";
 
@@ -33,9 +33,6 @@ function Header() {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
 
-  const isCreating = useSelector(
-    (state: RootState) => state.threads.isCreating
-  );
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [content, setContent] = useState("");
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -59,20 +56,31 @@ function Header() {
     },
   ];
 
-  const handleCreateThread = () => {
+  const handleCreateThread = async () => {
     if (!content.trim() && fileList.length === 0) {
       message.warning(t("thread.empty_warning"));
       return;
     }
 
-    dispatch(
-      createThread({ content, files: fileList.map((f) => f.originFileObj!) })
-    );
+    dispatch(showLoader());
 
-    setIsModalVisible(false);
-    setContent("");
-    setFileList([]);
-    message.success(t("thread.created_success"));
+    await dispatch(
+      createThread({ content, files: fileList.map((f) => f.originFileObj!) })
+    )
+      .unwrap()
+      .then(() => {
+        setIsModalVisible(false);
+        setContent("");
+        setFileList([]);
+        message.success(t("thread.created_success"));
+      })
+      .catch((error) => {
+        console.log(error);
+        message.error(t("thread.create_error", { error: error.message }));
+      })
+      .finally(() => {
+        dispatch(hideLoader());
+      });
   };
 
   return (
@@ -132,39 +140,37 @@ function Header() {
         </div>
       </div>
 
-      <Spin spinning={isCreating}>
-        <Modal
-          title={t("thread.create_title")}
-          open={isModalVisible}
-          onCancel={() => setIsModalVisible(false)}
-          onOk={handleCreateThread}
-          okText={t("common.post")}
-          cancelText={t("common.cancel")}
-        >
-          <Input.TextArea
-            placeholder={t("thread.placeholder")}
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            autoSize={{ minRows: 3 }}
-          />
+      <Modal
+        title={t("thread.create_title")}
+        open={isModalVisible}
+        onCancel={() => setIsModalVisible(false)}
+        onOk={handleCreateThread}
+        okText={t("common.post")}
+        cancelText={t("common.cancel")}
+      >
+        <Input.TextArea
+          placeholder={t("thread.placeholder")}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          autoSize={{ minRows: 3 }}
+        />
 
-          <Upload
-            multiple
-            listType="picture-card"
-            beforeUpload={() => false} // Ngăn upload auto
-            fileList={fileList}
-            onChange={({ fileList }) => setFileList(fileList)}
-            accept="image/*,video/*"
-          >
-            {fileList.length >= 8 ? null : (
-              <div>
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>{t("thread.upload")}</div>
-              </div>
-            )}
-          </Upload>
-        </Modal>
-      </Spin>
+        <Upload
+          multiple
+          listType="picture-card"
+          beforeUpload={() => false} // Ngăn upload auto
+          fileList={fileList}
+          onChange={({ fileList }) => setFileList(fileList)}
+          accept="image/*,video/*"
+        >
+          {fileList.length >= 8 ? null : (
+            <div>
+              <PlusOutlined />
+              <div style={{ marginTop: 8 }}>{t("thread.upload")}</div>
+            </div>
+          )}
+        </Upload>
+      </Modal>
     </HeaderAnt>
   );
 }

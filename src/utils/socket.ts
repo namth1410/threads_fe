@@ -2,7 +2,7 @@ import { io, Socket } from "socket.io-client";
 
 // URL của backend server (dùng đúng port backend đang chạy)
 const SOCKET_SERVER_URL =
-  process.env.VITE_SOCKET_SERVER_URL ?? "http://localhost:4000";
+  import.meta.env.VITE_SOCKET_SERVER_URL ?? "http://localhost:4000";
 
 let socket: Socket;
 

@@ -7,13 +7,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 interface ThreadState {
   threads: ThreadResponseDto[];
   meta: PaginationMeta | null;
-  isCreating: boolean;
 }
 
 const initialState: ThreadState = {
   threads: [],
   meta: null,
-  isCreating: false,
 };
 
 export const fetchThreads = createAsyncThunk("threads/fetchAll", async () => {
@@ -56,17 +54,7 @@ const threadSlice = createSlice({
         state.threads = action.payload.data;
         state.meta = action.payload.pagination;
       })
-      .addCase(fetchThreads.rejected, () => {})
-
-      .addCase(createThread.pending, (state) => {
-        state.isCreating = true;
-      })
-      .addCase(createThread.fulfilled, (state, action) => {
-        state.isCreating = false;
-      })
-      .addCase(createThread.rejected, (state) => {
-        state.isCreating = false;
-      });
+      .addCase(fetchThreads.rejected, () => {});
   },
 });
 
