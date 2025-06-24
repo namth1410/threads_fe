@@ -47,7 +47,7 @@
         display: flex;
         gap: 16px;
         font-size: 14px;
-        color: #aaa;
+        color: #00000081;
         align-items: center;
 
         .action {
@@ -55,9 +55,10 @@
             align-items: center;
             gap: 4px;
             cursor: pointer;
+            transition: all 0.3s ease;
 
             &:hover {
-                color: #fff;
+                color: #000;
             }
         }
     }

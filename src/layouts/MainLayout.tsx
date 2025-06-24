@@ -11,16 +11,12 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   );
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout>
       <Header />
 
       <Content
         style={{
           padding: "24px",
-          maxWidth: "1200px",
-          margin: "0 auto",
-          width: "100%",
-          background: "#fff",
         }}
       >
         {children}

@@ -5,10 +5,11 @@ import {
   RetweetOutlined,
   ShareAltOutlined,
 } from "@ant-design/icons";
+import { Avatar } from "antd";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { Avatar } from "antd";
 import styles from "./ThreadItem.module.scss";
+import ThreadMedia from "./ThreadMedia";
 
 dayjs.extend(relativeTime);
 
@@ -31,24 +32,14 @@ const ThreadItem: React.FC<Props> = ({ thread }) => {
 
       {media?.length > 0 && (
         <div className={styles.media}>
-          {media.map((m) =>
-            m.type.startsWith("image") ? (
-              <img
-                key={m.id}
-                src={m.url}
-                alt={m.fileName}
-                style={{ width: `${100 / Math.min(media.length, 3)}%` }}
-              />
-            ) : (
-              <video
-                key={m.id}
-                src={m.url}
-                controls
-                preload="metadata"
-                style={{ width: `${100 / Math.min(media.length, 3)}%` }}
-              />
-            )
-          )}
+          {media.map((m) => (
+            <div
+              key={m.id}
+              style={{ width: `${100 / Math.min(media.length, 3)}%` }}
+            >
+              <ThreadMedia type={m.type} fileName={m.fileName} />
+            </div>
+          ))}
         </div>
       )}
 
