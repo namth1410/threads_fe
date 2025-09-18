@@ -5,7 +5,7 @@ const LoadingScreen = () => {
   return (
     <div className={styles.loadingScreen}>
       <Spin size="large" />
-      <p className={styles.loadingText}>Loading hihi1...</p>
+      <p className={styles.loadingText}>Loading hihi...</p>
     </div>
   );
 };
