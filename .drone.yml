@@ -1,0 +1,22 @@
+kind: pipeline
+type: docker
+name: build-and-push
+
+steps:
+  - name: build
+    image: node:22.14.0
+    commands:
+      - npm ci
+      - npm run build
+      - cp -r dist/ /tmp/dist
+
+  - name: docker-build
+    image: plugins/docker
+    settings:
+      repo: dangnnam141002/threads-fe
+      tags: latest
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      dockerfile: Dockerfile
