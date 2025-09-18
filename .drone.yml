@@ -9,6 +9,11 @@ trigger:
     - push
 
 steps:
+  - name: clone
+    image: alpine/git
+    commands:
+      - git clone --depth=1 https://github.com/namth1410/threads_fe.git .
+
   - name: docker-build
     image: plugins/docker
     settings:
