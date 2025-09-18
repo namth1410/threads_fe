@@ -11,7 +11,6 @@ trigger:
 steps:
   - name: docker-build
     image: plugins/docker
-    privileged: true # bắt buộc để DinD chạy
     settings:
       repo: dangnnam141002/threads-fe
       tags: latest
