@@ -11,6 +11,7 @@ trigger:
 steps:
   - name: docker-build
     image: plugins/docker
+    privileged: true # bắt buộc để DinD chạy
     settings:
       repo: dangnnam141002/threads-fe
       tags: latest
@@ -19,4 +20,4 @@ steps:
       password:
         from_secret: docker_password
       dockerfile: Dockerfile
-      context: /drone/src # thư mục đã được Drone clone sẵn
+      context: /drone/src
