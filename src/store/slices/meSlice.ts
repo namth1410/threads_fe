@@ -83,7 +83,7 @@ const meSlice = createSlice({
           state.me = action.payload.data;
         }
       )
-      .addCase(getMe.rejected, (state: MeState, action) => {
+      .addCase(getMe.rejected, (state: MeState) => {
         state.loading = false;
       });
   },
