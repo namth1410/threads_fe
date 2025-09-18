@@ -9,11 +9,6 @@ trigger:
     - push
 
 steps:
-  - name: clone-code
-    image: alpine/git
-    commands:
-      - git clone --depth=1 https://github.com/namth1410/threads_fe.git .
-
   - name: docker-build
     image: plugins/docker
     settings:
@@ -24,3 +19,4 @@ steps:
       password:
         from_secret: docker_password
       dockerfile: Dockerfile
+      context: /drone/src # thư mục đã được Drone clone sẵn
