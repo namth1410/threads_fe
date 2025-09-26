@@ -16,7 +16,7 @@ type ReactionActionProps = {
   count: number;
 };
 
-const ReactionAction: React.FC<ReactionActionProps> = ({ threadId, count }) => {
+const ReactionAction: React.FC<ReactionActionProps> = ({ count }) => {
   const [currentReaction, setCurrentReaction] = useState<string | null>(null);
 
   const handleReaction = (reaction: string) => {

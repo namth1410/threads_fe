@@ -1,6 +1,5 @@
 import { ThreadResponseDto } from "@/types/thread";
 import {
-  HeartOutlined,
   MessageOutlined,
   RetweetOutlined,
   ShareAltOutlined,
@@ -8,9 +7,9 @@ import {
 import { Avatar } from "antd";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import ReactionAction from "./ReactionAction";
 import styles from "./ThreadItem.module.scss";
 import ThreadMedia from "./ThreadMedia";
-import ReactionAction from "./ReactionAction";
 
 dayjs.extend(relativeTime);
 
