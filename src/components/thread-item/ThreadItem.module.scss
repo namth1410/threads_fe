@@ -61,5 +61,30 @@
                 color: #000;
             }
         }
+
+        .reactionPopover {
+            .ant-popover-inner {
+                padding: 8px 12px;
+                border-radius: 24px;
+            }
+        }
+
+        .reactionPicker {
+            display: flex;
+            gap: 12px; // khoảng cách giữa các emoji
+        }
+
+        .reactionEmoji {
+            font-size: 28px; // to hơn
+            cursor: pointer;
+            transition:
+                transform 0.2s ease,
+                filter 0.2s ease;
+
+            &:hover {
+                transform: scale(1.5); // zoom khi hover
+                filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            }
+        }
     }
 }

@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import styles from "./ThreadItem.module.scss";
 import ThreadMedia from "./ThreadMedia";
+import ReactionAction from "./ReactionAction";
 
 dayjs.extend(relativeTime);
 
@@ -44,10 +45,7 @@ const ThreadItem: React.FC<Props> = ({ thread }) => {
       )}
 
       <div className={styles.actions}>
-        <div className={styles.action}>
-          <HeartOutlined />
-          <span>1.3K</span>
-        </div>
+        <ReactionAction threadId={thread.id} count={1300} />
         <div className={styles.action}>
           <MessageOutlined />
           <span>8</span>

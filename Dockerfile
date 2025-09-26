@@ -24,6 +24,7 @@ FROM nginxinc/nginx-unprivileged:stable-alpine3.19-slim
 # Copy build output từ dist (Vite) -> nginx html
 COPY --from=build --chown=101:101 /app/dist /usr/share/nginx/html
 
+COPY ./rootfs /
 # Expose port 8080 (nginx unprivileged dùng 8080 thay vì 80)
 EXPOSE 8080
 

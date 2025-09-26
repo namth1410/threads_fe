@@ -8,6 +8,7 @@ import Profile from "@/pages/profile/Profile";
 import Register from "@/pages/register/Register";
 import { AppDispatch, RootState } from "@/store";
 import { getMe } from "@/store/slices/meSlice";
+import { message, Spin } from "antd";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,12 +17,13 @@ import {
   BrowserRouter as Router,
   Routes,
 } from "react-router-dom";
+import { fetchThreads } from "./store/slices/threadSlice";
 import { connectSocket, getSocket } from "./utils/socket";
-import { message } from "antd";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
   const { me } = useSelector((state: RootState) => state.me);
+  const { globalLoading } = useSelector((state: RootState) => state.loader);
 
   useEffect(() => {
     connectSocket();
@@ -33,6 +35,7 @@ function App() {
     socket.on(completeEvent, (payload) => {
       console.log("✅ Upload completed", payload);
       message.success(payload.fileUrl);
+      dispatch(fetchThreads());
     });
 
     socket.on(failedEvent, (payload) => {
@@ -53,35 +56,39 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Routes>
-        {!me && <Route path="/login" element={<Login />} />}
-        {!me && <Route path="/forgot-password" element={<ForgotPassword />} />}
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/register" element={<Register />} />
+    <Spin spinning={globalLoading}>
+      <Router>
+        <Routes>
+          {!me && <Route path="/login" element={<Login />} />}
+          {!me && (
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+          )}
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/register" element={<Register />} />
 
-        {me && (
-          <Route
-            path="/*"
-            element={
-              <MainLayout>
-                <Routes>
-                  <Route path="/" element={<Explore />} />
-                  <Route path="/search" element={<div>Search Page</div>} />
-                  <Route
-                    path="/notifications"
-                    element={<div>Notifications Page</div>}
-                  />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="*" element={<Navigate to="/" replace />} />
-                </Routes>
-              </MainLayout>
-            }
-          />
-        )}
-        <Route path="/*" element={<LoadingScreen />} />
-      </Routes>
-    </Router>
+          {me && (
+            <Route
+              path="/*"
+              element={
+                <MainLayout>
+                  <Routes>
+                    <Route path="/" element={<Explore />} />
+                    <Route path="/search" element={<div>Search Page</div>} />
+                    <Route
+                      path="/notifications"
+                      element={<div>Notifications Page</div>}
+                    />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                  </Routes>
+                </MainLayout>
+              }
+            />
+          )}
+          <Route path="/*" element={<LoadingScreen />} />
+        </Routes>
+      </Router>
+    </Spin>
   );
 }
 

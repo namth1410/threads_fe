@@ -9,15 +9,17 @@ trigger:
     - push
 
 steps:
-  - name: docker-build
+  - name: docker-build-and-push-to-harbor
     image: plugins/docker
-    privileged: true # bắt buộc để DinD chạy
     settings:
-      repo: dangnnam141002/threads-fe
+      # Thêm dòng này để chỉ định registry là Harbor
+      registry: harbor.namth.online
+      # Thay đổi repo để có định dạng của Harbor
+      repo: harbor.namth.online/threads/threads-fe
       tags: latest
       username:
-        from_secret: docker_username
+        from_secret: harbor_username # Trỏ đến secret mới
       password:
-        from_secret: docker_password
+        from_secret: harbor_password # Trỏ đến secret mới
       dockerfile: Dockerfile
       context: /drone/src

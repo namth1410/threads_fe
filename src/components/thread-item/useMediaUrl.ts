@@ -12,7 +12,7 @@ export function useMediaUrl(fileName: number | string) {
       try {
         setLoading(true);
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/minio/presigned?fileName=${fileName}`
+          `${window._env_.VITE_API_URL}/minio/presigned?fileName=${fileName}`
         );
         const data = await res.json();
         if (!cancelled) setUrl(data.data.url);
