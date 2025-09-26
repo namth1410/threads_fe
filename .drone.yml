@@ -16,7 +16,7 @@ steps:
       registry: harbor.namth.online
       # Thay đổi repo để có định dạng của Harbor
       repo: harbor.namth.online/threads/threads-fe
-      tags: latest
+      tags: 1.0.0-${DRONE_COMMIT_SHA:0:7}
       username:
         from_secret: harbor_username # Trỏ đến secret mới
       password:
