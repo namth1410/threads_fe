@@ -12,6 +12,7 @@ steps:
   - name: docker-build-and-push-to-harbor
     image: plugins/docker
     settings:
+      insecure: false
       # Thêm dòng này để chỉ định registry là Harbor
       registry: harbor.namth.online
       # Thay đổi repo để có định dạng của Harbor
