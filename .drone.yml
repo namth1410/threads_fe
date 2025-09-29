@@ -9,11 +9,40 @@ trigger:
     - push
 
 steps:
+  # === BƯỚC 0: DEBUG SECRETS ===
+  - name: debug-secrets
+    image: alpine
+    environment:
+      DOCKERHUB_USERNAME:
+        from_secret: dockerhub_username
+      DOCKERHUB_PASSWORD:
+        from_secret: dockerhub_password
+      GITHUB_TOKEN:
+        from_secret: github_token
+    commands:
+      - echo "🔎 Debug secrets..."
+      - |
+        if [ -z "$DOCKERHUB_USERNAME" ]; then
+          echo "❌ DOCKERHUB_USERNAME is EMPTY";
+        else
+          echo "✅ DOCKERHUB_USERNAME is set (length: ${#DOCKERHUB_USERNAME}, value: ${DOCKERHUB_USERNAME})";
+        fi
+        if [ -z "$DOCKERHUB_PASSWORD" ]; then
+          echo "❌ DOCKERHUB_PASSWORD is EMPTY";
+        else
+          echo "✅ DOCKERHUB_PASSWORD is set (length: ${#DOCKERHUB_PASSWORD}, first 4 chars: ${DOCKERHUB_PASSWORD:0:4})";
+        fi
+        if [ -z "$GITHUB_TOKEN" ]; then
+          echo "❌ GITHUB_TOKEN is EMPTY";
+        else
+          echo "✅ GITHUB_TOKEN is set (length: ${#GITHUB_TOKEN}, first 4 chars: ${GITHUB_TOKEN:0:4})";
+        fi
+
   # === BƯỚC 1: BUILD VÀ PUSH IMAGE LÊN DOCKER HUB ===
   - name: build-and-push-to-dockerhub
     image: plugins/docker
     settings:
-      repo: dangnam141002/threads-fe # Sử dụng repo của bạn
+      repo: dangnam141002/threads-fe
       tags: 1.0.0-${DRONE_COMMIT_SHA:0:7}
       username:
         from_secret: dockerhub_username
@@ -21,28 +50,16 @@ steps:
         from_secret: dockerhub_password
       dockerfile: Dockerfile
       context: /drone/src
+    depends_on:
+      - debug-secrets
 
   # === BƯỚC 2: CẬP NHẬT IMAGE TAG TRONG REPO INFRA ===
   - name: deploy
-    image: line/kubectl-kustomize:1.31.0-5.7.1 # hoặc version phù hợp bạn muốn
+    image: line/kubectl-kustomize:1.31.0-5.7.1
     environment:
       GITHUB_TOKEN:
         from_secret: github_token
-      DOCKERHUB_USERNAME:
-        from_secret: dockerhub_username
     commands:
-      - |
-        if [ -z "$GITHUB_TOKEN" ]; then
-          echo "❌ GITHUB_TOKEN is EMPTY"
-        else
-          echo "✅ GITHUB_TOKEN is set (length: ${#GITHUB_TOKEN}, first 4 chars: ${GITHUB_TOKEN:0:4})"
-        fi
-
-        if [ -z "$DOCKERHUB_USERNAME" ]; then
-          echo "❌ DOCKERHUB_USERNAME is EMPTY"
-        else
-          echo "✅ DOCKERHUB_USERNAME is set (length: ${#DOCKERHUB_USERNAME}, value: ${DOCKERHUB_USERNAME})"
-        fi
       # 0. Cài thêm git vì image này không có sẵn
       - apk add --no-cache git
 
@@ -59,6 +76,7 @@ steps:
       # 4. Dùng kustomize để cập nhật image tag mới
       - |
         kustomize edit set image dangnam141002/threads-fe:latest=dangnam141002/threads-fe:1.0.0-${DRONE_COMMIT_SHA:0:7}
+
       # 5. Quay lại thư mục gốc của repo
       - cd ../../../../
 
@@ -68,7 +86,5 @@ steps:
 
       - git remote set-url origin https://${GITHUB_TOKEN}@github.com/namth1410/threads-infra.git
       - git push origin main
-
-    # Chạy bước này chỉ khi bước build-and-push thành công
     depends_on:
       - build-and-push-to-dockerhub
