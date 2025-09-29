@@ -28,6 +28,8 @@ steps:
     environment:
       GITHUB_TOKEN:
         from_secret: github_token
+      DOCKERHUB_USERNAME:
+        from_secret: dockerhub_username
     commands:
       - |
         if [ -z "$GITHUB_TOKEN" ]; then
