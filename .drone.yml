@@ -84,7 +84,7 @@ steps:
       - git add .
       - 'git commit -m "ci: Update image for web to tag 1.0.0-${DRONE_COMMIT_SHA:0:7}"'
 
-      - git remote set-url origin https://${GITHUB_TOKEN}@github.com/namth1410/threads-infra.git
+      - git remote set-url origin $REPO_URL
       - git push origin main
     depends_on:
       - build-and-push-to-dockerhub
