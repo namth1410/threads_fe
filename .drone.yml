@@ -57,8 +57,8 @@ steps:
   - name: deploy
     image: line/kubectl-kustomize:1.31.0-5.7.1
     environment:
-      GITHUB_TOKEN:
-        from_secret: github_token
+      REPO_URL:
+        from_secret: repo_url
     commands:
       # 0. Cài thêm git vì image này không có sẵn
       - apk add --no-cache git
@@ -68,7 +68,7 @@ steps:
       - git config --global user.email "tranhainam1410@gmail.com"
 
       # 2. Clone repo infra sử dụng token
-      - git clone https://${GITHUB_TOKEN}@github.com/namth1410/threads-infra.git
+      - git clone $REPO_URL
 
       # 3. Di chuyển vào đúng thư mục overlay cần cập nhật
       - cd threads-infra/manifests/overlays/dev/web
