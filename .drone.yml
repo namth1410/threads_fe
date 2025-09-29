@@ -1,6 +1,6 @@
 kind: pipeline
 type: kubernetes
-name: build-and-push
+name: build-and-push-to-dockerhub
 
 trigger:
   branch:
@@ -9,18 +9,20 @@ trigger:
     - push
 
 steps:
-  - name: docker-build-and-push-to-harbor
+  - name: docker-build-and-push-to-dockerhub
     image: plugins/docker
     settings:
-      insecure: false
-      # Thêm dòng này để chỉ định registry là Harbor
-      registry: harbor.namth.online
-      # Thay đổi repo để có định dạng của Harbor
-      repo: harbor.namth.online/threads/threads-fe
-      tags: 1.0.0-${DRONE_COMMIT_SHA:0:7}
+      # Thay đổi repo thành định dạng của Docker Hub
+      # Thay "your_dockerhub_username" bằng tên người dùng Docker Hub của bạn
+      repo: dangnam141002/threads-fe
+      tags:
+        - 1.0.0-${DRONE_COMMIT_SHA:0:7}
+        - latest # Thêm tag latest để tiện sử dụng
+      # Trỏ đến secrets chứa thông tin đăng nhập Docker Hub của bạn
       username:
-        from_secret: harbor_username # Trỏ đến secret mới
+        from_secret: dockerhub_username
       password:
-        from_secret: harbor_password # Trỏ đến secret mới
+        from_secret: dockerhub_password
+      # Các cài đặt còn lại thường không cần thay đổi
       dockerfile: Dockerfile
       context: /drone/src
