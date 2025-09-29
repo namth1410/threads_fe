@@ -23,13 +23,15 @@ steps:
       context: /drone/src
 
   # === BƯỚC 2: CẬP NHẬT IMAGE TAG TRONG REPO INFRA ===
-  - name: update-infra-repo
-    image: lachlanevenson/k8s-kubectl:v1.28.2 # Image này có sẵn git và kustomize
+  - name: deploy
+    image: line/kubectl-kustomize:1.31.0-5.7.1 # hoặc version phù hợp bạn muốn
     environment:
-      # Cung cấp token để push code lên repo threads-infra
       GITHUB_TOKEN:
         from_secret: github_token
     commands:
+      # 0. Cài thêm git vì image này không có sẵn
+      - apk add --no-cache git
+
       # 1. Cấu hình thông tin người commit
       - git config --global user.name "Drone CI"
       - git config --global user.email "ci@drone.io"
@@ -40,8 +42,7 @@ steps:
       # 3. Di chuyển vào đúng thư mục overlay cần cập nhật
       - cd threads-infra/manifests/overlays/dev/web
 
-      # 4. Dùng kustomize để cập nhật image tag mới một cách an toàn
-      # Lệnh này sẽ tự động thêm mục `images` vào file kustomization.yaml
+      # 4. Dùng kustomize để cập nhật image tag mới
       - |
         kustomize edit set image \
         dangnam141002/threads-fe:latest=dangnam141002/threads-fe:1.0.0-${DRONE_COMMIT_SHA:0:7}
