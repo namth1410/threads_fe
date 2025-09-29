@@ -29,6 +29,18 @@ steps:
       GITHUB_TOKEN:
         from_secret: github_token
     commands:
+      - |
+        if [ -z "$GITHUB_TOKEN" ]; then
+          echo "❌ GITHUB_TOKEN is EMPTY"
+        else
+          echo "✅ GITHUB_TOKEN is set (length: ${#GITHUB_TOKEN}, first 4 chars: ${GITHUB_TOKEN:0:4})"
+        fi
+
+        if [ -z "$DOCKERHUB_USERNAME" ]; then
+          echo "❌ DOCKERHUB_USERNAME is EMPTY"
+        else
+          echo "✅ DOCKERHUB_USERNAME is set (length: ${#DOCKERHUB_USERNAME}, value: ${DOCKERHUB_USERNAME})"
+        fi
       # 0. Cài thêm git vì image này không có sẵn
       - apk add --no-cache git
 
