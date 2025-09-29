@@ -33,8 +33,8 @@ steps:
       - apk add --no-cache git
 
       # 1. Cấu hình thông tin người commit
-      - git config --global user.name "Drone CI"
-      - git config --global user.email "ci@drone.io"
+      - git config --global user.name "namth1410"
+      - git config --global user.email "tranhainam1410@gmail.com"
 
       # 2. Clone repo infra sử dụng token
       - git clone https://${GITHUB_TOKEN}@github.com/namth1410/threads-infra.git
