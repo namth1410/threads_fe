@@ -44,11 +44,9 @@ steps:
 
       # 4. Dùng kustomize để cập nhật image tag mới
       - |
-        kustomize edit set image \
-        dangnam141002/threads-fe:latest=dangnam141002/threads-fe:1.0.0-${DRONE_COMMIT_SHA:0:7}
-
+        kustomize edit set image dangnam141002/threads-fe:latest=dangnam141002/threads-fe:1.0.0-${DRONE_COMMIT_SHA:0:7}
       # 5. Quay lại thư mục gốc của repo
-      - cd threads-infra
+      - cd ../../../../
 
       # 6. Add, commit và push thay đổi lên repo infra
       - git add .
