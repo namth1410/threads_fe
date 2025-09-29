@@ -1,6 +1,6 @@
 kind: pipeline
 type: kubernetes
-name: build-and-push-to-dockerhub
+name: build-push-and-update-infra
 
 trigger:
   branch:
@@ -9,20 +9,51 @@ trigger:
     - push
 
 steps:
-  - name: docker-build-and-push-to-dockerhub
+  # === BƯỚC 1: BUILD VÀ PUSH IMAGE LÊN DOCKER HUB ===
+  - name: build-and-push-to-dockerhub
     image: plugins/docker
     settings:
-      # Thay đổi repo thành định dạng của Docker Hub
-      # Thay "your_dockerhub_username" bằng tên người dùng Docker Hub của bạn
-      repo: dangnam141002/threads-fe
-      tags:
-        - 1.0.0-${DRONE_COMMIT_SHA:0:7}
-        - latest # Thêm tag latest để tiện sử dụng
-      # Trỏ đến secrets chứa thông tin đăng nhập Docker Hub của bạn
+      repo: dangnam141002/threads-fe # Sử dụng repo của bạn
+      tags: 1.0.0-${DRONE_COMMIT_SHA:0:7}
       username:
         from_secret: dockerhub_username
       password:
         from_secret: dockerhub_password
-      # Các cài đặt còn lại thường không cần thay đổi
       dockerfile: Dockerfile
       context: /drone/src
+
+  # === BƯỚC 2: CẬP NHẬT IMAGE TAG TRONG REPO INFRA ===
+  - name: update-infra-repo
+    image: lachlanevenson/k8s-kubectl:v1.28.2 # Image này có sẵn git và kustomize
+    environment:
+      # Cung cấp token để push code lên repo threads-infra
+      GITHUB_TOKEN:
+        from_secret: github_token
+    commands:
+      # 1. Cấu hình thông tin người commit
+      - git config --global user.name "Drone CI"
+      - git config --global user.email "ci@drone.io"
+
+      # 2. Clone repo infra sử dụng token
+      - git clone https://${GITHUB_TOKEN}@github.com/namth1410/threads-infra.git
+
+      # 3. Di chuyển vào đúng thư mục overlay cần cập nhật
+      - cd threads-infra/manifests/overlays/dev/web
+
+      # 4. Dùng kustomize để cập nhật image tag mới một cách an toàn
+      # Lệnh này sẽ tự động thêm mục `images` vào file kustomization.yaml
+      - |
+        kustomize edit set image \
+        dangnam141002/threads-fe:latest=dangnam141002/threads-fe:1.0.0-${DRONE_COMMIT_SHA:0:7}
+
+      # 5. Quay lại thư mục gốc của repo
+      - cd ../../../../..
+
+      # 6. Add, commit và push thay đổi lên repo infra
+      - git add .
+      - 'git commit -m "ci: Update image for web to tag 1.0.0-${DRONE_COMMIT_SHA:0:7}"'
+      - git push
+
+    # Chạy bước này chỉ khi bước build-and-push thành công
+    depends_on:
+      - build-and-push-to-dockerhub
