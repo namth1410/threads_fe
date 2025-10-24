@@ -6,6 +6,7 @@ import Login from "@/pages/login/Login";
 import ResetPassword from "@/pages/login/ResetPassword";
 import Profile from "@/pages/profile/Profile";
 import Register from "@/pages/register/Register";
+import Store from "@/pages/store/Store";
 import { AppDispatch, RootState } from "@/store";
 import { getMe } from "@/store/slices/meSlice";
 import { message, Spin } from "antd";
@@ -79,6 +80,7 @@ function App() {
                       element={<div>Notifications Page</div>}
                     />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/store" element={<Store />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </MainLayout>
