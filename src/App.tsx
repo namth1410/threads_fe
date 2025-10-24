@@ -39,7 +39,7 @@ function App() {
     });
 
     socket.on(failedEvent, (payload) => {
-      console.error("❌ Upload failed", payload);
+      console.error("❌ Upload failed hehe", payload);
       message.error(payload.reason);
     });
 
