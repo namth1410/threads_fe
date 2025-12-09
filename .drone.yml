@@ -12,40 +12,28 @@ trigger:
     - push
 
 steps:
-  # === BƯỚC 1: BUILD VÀ PUSH IMAGE LÊN DOCKER HUB ===
-  # - name: build-and-push-to-dockerhub
-  #   image: plugins/kaniko
-  #   settings:
-  #     repo: dangnam141002/threads-fe
-  #     tags: 
-  #       - 1.0.0-${DRONE_COMMIT_SHA:0:7}
-  #       - latest
-  #     username:
-  #       from_secret: dockerhub_username
-  #     password:
-  #       from_secret: dockerhub_password
-  #     dockerfile: Dockerfile
-  #     context: /drone/src
+  # === BƯỚC 1: BUILD VÀ PUSH IMAGE LÊN DOCKER HUB (KANIKO) ===
+  - name: build-and-push-to-dockerhub
+    image: gcr.io/kaniko-project/executor:v1.23.2-debug
+    environment:
+      DOCKERHUB_USERNAME:
+        from_secret: dockerhub_username
+      DOCKERHUB_PASSWORD:
+        from_secret: dockerhub_password
+    commands:
+      # Tạo Docker config để authenticate với Docker Hub
+      - mkdir -p /kaniko/.docker
+      - |
+        echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$DOCKERHUB_USERNAME\",\"password\":\"$DOCKERHUB_PASSWORD\"}}}" > /kaniko/.docker/config.json
+      # Build và push image bằng Kaniko
+      - /kaniko/executor
+        --context=/drone/src
+        --dockerfile=/drone/src/Dockerfile
+        --destination=dangnam141002/threads-fe:1.0.0-${DRONE_COMMIT_SHA:0:7}
+        --destination=dangnam141002/threads-fe:latest
+        --cache=true
 
-  # === BƯỚC 2: BUILD VÀ PUSH IMAGE LÊN HARBOR ===
-  - name: build-and-push-to-harbor
-    image: plugins/kaniko
-    settings:
-      repo:
-        from_secret: harbor_repo
-      tags: 
-        - 1.0.0-${DRONE_COMMIT_SHA:0:7}
-        - latest
-      username:
-        from_secret: harbor_username
-      password:
-        from_secret: harbor_password
-      dockerfile: Dockerfile
-      context: /drone/src
-    # depends_on:
-    #   - build-and-push-to-dockerhub
-
-  # === BƯỚC 3: CẬP NHẬT IMAGE TAG TRONG REPO INFRA ===
+  # === BƯỚC 2: CẬP NHẬT IMAGE TAG TRONG REPO INFRA ===
   - name: deploy
     image: line/kubectl-kustomize:1.31.0-5.7.1
     environment:
@@ -79,4 +67,4 @@ steps:
       - git remote set-url origin $REPO_URL
       - git push origin main
     depends_on:
-      - build-and-push-to-harbor
+      - build-and-push-to-dockerhub
